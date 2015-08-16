@@ -1,0 +1,35 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+{% block body %}
+    <div class="container">
+
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <form class="form-signin"  action="{{ path("fos_user_security_check") }}" method="POST">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <label for="inputEmail" class="sr-only">Email</label>
+            <input id="inputEmail" type="email" value="{{ last_username }}" class="form-control" placeholder="Email" required="required" autofocus name="_username"  />
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input id="inputPassword" type="password" class="form-control" placeholder="Password" name="_password" required="required" />
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="on" name="_remember_me" /> Remember me
+                </label>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <button value="_submit" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@AppBundle/Resources/assets/css/login.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}

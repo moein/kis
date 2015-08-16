@@ -1,0 +1,24 @@
+services:
+    kis.user_repository:
+        class: AppBundle\Repository\UserRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - AppBundle\Entity\User
+
+    kis.document_repository:
+        class: AppBundle\Repository\DocumentRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - AppBundle\Entity\Document
+
+    kis.user_service:
+        class: AppBundle\Service\UserService
+        arguments:
+            - @kis.user_repository
+
+    kis.document_service:
+        class: AppBundle\Service\DocumentService
+        arguments:
+            - @kis.document_repository

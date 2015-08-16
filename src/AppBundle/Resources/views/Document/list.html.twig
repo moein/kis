@@ -1,0 +1,54 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}Documents{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    {% if documents | length > 0 %}
+
+    <div class="sub-container">
+        {% if message != '' %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        <h1>Documents</h1>
+        <div id="document-list" class="list-group">
+            {% for document in documents %}
+                <button type="button" data-url="{{ path('document_get', {id: document.id}) }}" class="list-group-item">{{ document.title }}</button>
+            {% endfor %}
+            <label for="password">Password</label>
+            <form id="get-document" action="#" method="POST">
+                <input id="password" name="password" type="password" class="form-control" />
+                <input type="hidden" value="0" name="submitted" id="submitted" />
+            </form>
+        </div>
+    </div>
+    {% else %}
+        {% if message != '' %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+        {% endif %}
+        <h2>You have no document! Create one <a href="{{ path('document_new') }}">here</a></h2>
+    {% endif %}
+    <a href="{{ path('logout') }}">Logout</a>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@AppBundle/Resources/assets/js/document/list.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@AppBundle/Resources/assets/css/document/list.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
