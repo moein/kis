@@ -10,3 +10,26 @@ Please keep in mind the idea of the project is just to protect the documents fro
 One more thing if all the users that a document is shared with forget their password there is no way to recover the content of the document.
 
 And last but not least don't forget this project is not production ready and it's just a 2 days made project so use it with caution!
+
+How to install
+==============
+
+Installing kis is pretty simple
+
+```bash
+composer install
+app/console doctrine:database:create
+app/console doctrine:schema:update --force
+```
+
+If you are planning to use it in production mode do not forget to use
+```bash
+app/console assetic:dump
+```
+
+To register a user go to /register
+
+TODOs
+=====
+Make a better interface(I'm a backend developer :D)
+Make a template for register
